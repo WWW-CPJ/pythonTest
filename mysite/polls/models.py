@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 #  模型就是数据库中的一张表
 #  QuestionAdmin 作为一个管理类，定义了如何在后台展示和操作该表的数据。
@@ -14,6 +15,12 @@ class Question (models.Model):
 
     def __str__(self):
         return self.question_text
+    
+    @admin.display(
+            boolean=True,
+            ordering="pub_date",
+            description="Published recently?",
+    )
     
     def was_published_recently(self):
         now = timezone.now()

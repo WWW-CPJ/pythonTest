@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小说阅读器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .novel {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 15px;
+        }
+        .content {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            white-space: pre-wrap; /* 保持文本格式 */
+            overflow: auto; /* 如果内容超出则出现滚动条 */
+            display: none; /* 初始隐藏内容 */
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>小说推荐</h1>
+
+    <div class="novel">
+        <h2>小说名字</h2>
+        <p>作者: 作者名字</p>
+        <p>字数: 字数</p>
+        <p>章节数: 章节数</p>
+        <p>状态: 完结</p>
+        <a href="#" class="read" data-file="九州·缥缈录I·蛮荒.txt">点击阅读</a>
+    </div>
+
+    <div class="content" id="content"></div>
+
+    <script>
+        document.querySelector('.read').addEventListener('click', function(event) {
+            event.preventDefault();
+            const fileName = this.getAttribute('data-file');
+            loadNovel(fileName);
+        });
+
+        function loadNovel(fileName) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                displayChapters(text);
+            };
+            reader.readAsText(fileName);
+        }
+
+        function displayChapters(text) {
+            const chapters = text.split(/(?=第[一二三四五六七八九十百千]+\s*章)/); // 根据章节标题分割
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = chapters.map(chapter => `<h3>${chapter.split('\n')[0]}</h3><p>${chapter}</p>`).join('');
+            contentDiv.style.display = 'block'; // 显示内容
+        }
+    </script>
+</body>
+</html>
