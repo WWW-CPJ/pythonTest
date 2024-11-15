@@ -1,0 +1,131 @@
+/* home page style */
+
+.homeLogo {
+    display: block;
+    border-radius: 30px;
+    max-width: 20%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    overflow: auto;
+    transition: transform 0.3s ease;     /* 添加过度效果 */
+}
+.homeLogo:hover {
+    transform: scale(1.1);               /* 鼠标悬停时放大 1 倍 */
+}
+/* align: 对齐 */
+
+.homeForm {
+    text-align: center;                  /* 表单内文本居中 */
+    padding: 2px;                       /* 内边距 */
+    width: 50%;
+    display: flex;                   /* 使用 flexbox 布局 */
+    align-items: center;            /* 垂直居中对齐 */
+    /* border-radius: 5px;                  圆角边框 */
+    /* box-shadow: 0 0 10px rgba(#4949ee, alpha);    阴影效果 */
+}
+
+.search-container {
+    display: flex;                       /* 使用 flexbox 布局 */
+    justify-content: center;             /* 水平居中对齐 */
+    align-items: center;                 /* 垂直居中对齐 */
+    margin-top: 15px;                    /* 上边距 */
+}
+.homeFormInput {
+    width: 80%;
+    height: 20%;
+    padding: 10px;                     /* 内边距 */
+    border: 2px solid #007BFF;          /* 边框 */
+    /* border-radius: 10px;               圆角边框 */
+    border-radius: 20px 0 0 20px;      /* 左侧圆角 */
+    font-size: 16px;                   /* 字体大小 */
+    flex-grow: 1;                      /* 输入框占据可用空间 */
+    flex: 1;                           /* 输入框占据剩余空间 */
+    transition: border-color 0.3s;     /* 边框颜色过渡 */
+}
+.homeFormInput:focus {
+    border-color: #0056b3;           /* 聚焦时边框颜色 */
+    outline: none;                     /* 去掉默认的聚焦轮廓 */
+}
+
+.homeSearchButton {
+    margin: 0;  /* 去掉默认的外边距 */
+    padding: 10px 15px;                /* 内边距 */
+    margin-left: none;               /*  按钮与输入框间距 */
+    /* border: none;                      去掉默认边框 */
+    border: 1px solid #ccc;           /* 边框 */
+    border-left: none;                 /* 去掉左侧边框 */
+    border-radius: 0 20px 20px 0;      /* 右侧圆角 */
+    /* border-radius: 10px;               圆角 */
+    background-color: #007BFF;         /* 按钮背景色 */
+    color: white;                      /* 按钮文字颜色 */
+    cursor: pointer;                   /* 鼠标指针 */
+    font-size: 16px;                   /* 字体大小 */
+    transition: background-color 0.3s; /* 背景色过渡 */
+}
+.homeSearchButton:hover {
+    background-color: #0056b3;          /* 鼠标悬停时背景色 */
+
+}
+.refreshHomePageMessage {
+    margin-top: 20px;
+    font-size: 30px;
+    color: green;
+}
+
+/* resultPage */
+
+.resultPageheader {
+    display: flex;
+    align-items: center;                /* 垂直居中对齐 */
+    padding: 10px;                      /* 添加一些内边距 */
+    background-color: aliceblue;      /* 背景色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);             /* 阴影效果 */
+}
+.logoDiv {
+    margin-right: 20px;                   /* 图像与输入框之间的间距 */
+}
+.resultPageLogo {
+    width: 130px;
+    height: auto;                         /* 保持纵横比 */
+}
+.resultPage-search-container {
+    display: flex;                           /* 使用 Flexbox 布局 */
+    align-items: center;                     /* 垂直居中对齐 */
+}
+.resultPageForm  {
+    display: flex;
+}
+.resultPageFormInput {
+    width: 500px;
+    padding: 10px;                          /* 内边距 */
+    font-size: 17px;                        /* 字体大小 */
+    border: 1px solid #ccc;               /* 边框样式 */
+    border-radius: 4px;                     /* 圆角边框 */
+    margin-right: 10px;                     /* 输入框与按钮之间的间距 */
+    padding: 10px;                          /* 内边距 */
+    border: 2px solid #007BFF;            /* 边框 */
+    border-radius: 10px;                    /* 圆角边框 */
+    font-size: 16px;                        /* 字体大小 */
+    flex-grow: 1;                           /* 输入框占据可用空间 */
+    flex: 1;                                /* 输入框占据剩余空间 */
+    transition: border-color 0.3s;          /* 边框颜色过渡 */
+}
+.resultPageFormInput:focus {
+    border-color: #0056b3;                /* 聚焦时边框颜色 */
+    outline: none;                          /* 去掉默认的聚焦轮廓 */
+}
+.resultPageSearchButton {
+    padding: 8px 16px;                      /* 按钮内边距 */
+    font-size: 16px;                        /* 字体大小 */
+    background-color: #007BFF;            /* 按钮背景色 */
+    color: white;                         /* 字体颜色 */
+    border: none;                           /* 无边框 */
+    border-radius: 4px;                     /* 圆角边框 */
+    cursor: pointer;                        /* 鼠标指针效果 */
+    transition: background-color 0.3s;      /* 动效 */
+}
+.resultPageSearchButton:hover {
+    background-color: #0056b3;            /* 悬停时改变背景色 */
+}

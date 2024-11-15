@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            results
+        </title>
+    </head>
+    <body>
+        <h1>
+            {{ question.question_text }}
+        </h1>
+
+        <ul>
+            {% for choice in question.choice_set.all %}
+                <li>
+                    {{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+    </body>
+</html>
+
+<!-- {% %} 用于 逻辑控制，执行条件判断、循环、引入其他模板等功能。
+{{ }} 用于 输出变量的值，将动态数据插入到 HTML 中。 -->

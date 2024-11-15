@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="../css/HomeStyle.css">      <!-- 引入 CSS -->
+    </head>
+
+    <body>
+        <div>
+            <img class="homeLogo" src="../img/Searching.jpeg" alt="Searching">
+            <!-- 给这个图片设置一个按钮功能，点击后刷新页面 -->
+             <div class="refreshHomePageMessage" id="refreshHomePageMessage"   style="display: none;">已刷新页面</div>
+        </div>
+
+        <div class="search-container">
+            <form class="homeForm" action="./ResultPage.html" method="get">
+                <input class="homeFormInput" type="search" id="search-input" name="query" aria-placeholder="请输入搜索内容" aria-required="true" placeholder="请输入搜索内容">
+                <button class="homeSearchButton" type="submit">搜索一下</button>
+            </form>
+        </div>
+        <!-- 搜索框下可以加几个位置，里面放的是历史网站链接 -->
+        <div>
+
+        </div>
+    </body>
+
+
+</html>
