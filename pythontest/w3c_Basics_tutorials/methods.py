@@ -221,5 +221,5 @@ print(txt.zfill(20))
 # 在字符串填满0，满足 长度参数。长度参数如果小于字符串长度，不填充
 # 只能填充 0
 
-txt="fuck"
-print(txt.translate())
+# txt="fuck"
+# print(txt.translate())
