@@ -1,6 +1,6 @@
 import scrapy
 import requests
-from dpcq.items import DpcqItem
+from dpcq.items import DpcqItem, ChapterItem
 import xml.etree.ElementTree as ET
 
 class DocqhomeSpider(scrapy.Spider):
@@ -24,12 +24,11 @@ class DocqhomeSpider(scrapy.Spider):
     'Sec-Fetch-Site': 'cross-site'
     }
         
-    def start_requests(self):
-        for url in self.start_urls:
-            yield scrapy.Request(url, headers=self.headers, callback=self.parse)
+    # def start_requests(self):
+    #     for url in self.start_urls:
+    #         yield scrapy.Request(url, headers=self.headers, callback=self.parse)
 
     def parse(self, response):
-
 
         status_code = response.status
         self.logger.info(f'Status Code: {status_code}')
@@ -37,7 +36,9 @@ class DocqhomeSpider(scrapy.Spider):
         item = DpcqItem()
         book_info = response.xpath('//div[@class="m-book_info"]/div[@class="m-infos"]')
         book_info_text = response.xpath('//div[@class="m-book_info"]/div[@class="m-infos"]//text()').getall()
-        item['info'] = book_info_text
+        # item['info'] = book_info_text
+        item ['status'] = book_info_text[2]
+        item['date'] = book_info_text[3]
         self.logger.info(f"Book info: {book_info_text}")
 
         novel_name = book_info.xpath('//h1/text()').getall()
@@ -50,13 +51,19 @@ class DocqhomeSpider(scrapy.Spider):
         novel_introduce = book_info.xpath('//div[@class="m-book_info"]/p/text()').getall()
         item['intro'] = novel_introduce
         self.logger.info(f"Novel Introduce: {novel_introduce}")
-
-        novel_chapters = response.xpath('//div[@class="m-book-list"]/div[@id="play_0"]/ul/li/a/text()').getall()
-        for novrl_chapter in novel_chapters[0:10]:
-            self.logger.info(f"Novel chapter: {novrl_chapter}")
-        item['chapter'] = novel_chapters[0:10]
-
+               
         yield item
+
+        item = ChapterItem()
+        novel_chapters = response.xpath('//div[@class="m-book-list"]/div[@id="play_0"]/ul/li/a/text()').getall()[0:10]
+        for novrl_chapter in novel_chapters[0:1]:
+            self.logger.info(f"Novel chapter: {novrl_chapter}")
+        item['chapter'] = novel_chapters[0:1]
+        print (novel_chapters[0:1])
+        print(f"item: {item}")
+        yield item
+
+ 
 
 
 

@@ -11,8 +11,14 @@ class DpcqItem(scrapy.Item):
     # pass
     name = scrapy.Field()
     author = scrapy.Field()
-    info = scrapy.Field()
+    status = scrapy.Field()
+    date = scrapy.Field()
+    # info = scrapy.Field()
     intro = scrapy.Field()
+    # chapter = scrapy.Field()
+
+class ChapterItem(scrapy.Item):
     chapter = scrapy.Field()
+    
 
 
