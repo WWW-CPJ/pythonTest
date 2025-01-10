@@ -68,6 +68,7 @@ class DpcqPipeline:
                 spider.logger.error(f"Error inserting item into database: {e}")
                 return None
 
+
 class ChaptersPipeline:
     def __init__(self):
         self.conn = None
@@ -95,25 +96,62 @@ class ChaptersPipeline:
             self.conn.commit()
             self.conn.close()
 
-    def process_item(self, item, spider):
-        if isinstance(item, ChapterItem):
-            self.logger.info(f"itrm: {item}")
-            self.logger.info(f"item['chapter']: {item['chapter']}")
-            try:
-                for chapter in item['chapter']:
-                    self.cursor.execute('''
-                                        INSERT INTO chapters (chapter)
-                                        VALUES (?)''', (chapter))
-                    inserted_id = self.cursor.lastrowid
+    def process_item(self, chapter_item, spider):
 
-                    if inserted_id:
-                        print(f"Data inserted successfully with ID: {inserted_id}")
-                    else:
-                        print("Data insertion failed.")
+        # adapter = ItemAdapter(item)
+        # chapters = adapter.get('chapter', [])
+        # print(f"Chpters from ItemAdapter: {chapters}")
+
+        print ("开始处理章节")
+        print (f"chapter_item: {chapter_item}")
+
+        if chapter_item is None:
+            spider.logger.error("Item is None")
+            return None
+        try:
+            if isinstance(chapter_item, ChapterItem):
+                self.cursor.execute('''
+                                    INSERT INTO chapters (chapter)
+                                    VALUES (?)''', (chapter_item, ))
+                inserted_id = self.cursor.lastrowid
+
+                if inserted_id:
+                    print(f"Data inserted successfully with ID: {inserted_id}")
+                else:
+                    print("Data insertion failed.")
                 self.conn.commit()
 
-                return item
-            except sqlite3.Error as e:
-                spider.logger.error(f"Error inserting item into database: {e}")
-                self.conn.rollback()
+                return chapter_item
+            else:
+                print("Item is not an instance of ChapterItem")
+                print(f"chapter_item: {chapter_item}")
+                print(f"Type of chapter_item: {type(chapter_item)}")
                 return None
+        except sqlite3.Error as e:
+            spider.logger.error(f"Error inserting item into database:{e}")
+            self.conn.rollback()
+            return None
+    
+        # if isinstance(chapter_item, ChapterItem):
+        #     print ("分割线")
+        #     try:
+        #         for chapter in chapter_item['chapter']:
+        #             self.cursor.execute('''
+        #                                 INSERT INTO chapters (chapter)
+        #                                 VALUES (?)''', (chapter, ))
+        #             inserted_id = self.cursor.lastrowid
+
+        #             if inserted_id:
+        #                 print(f"Data inserted successfully with ID: {inserted_id}")
+        #             else:
+        #                 print("Data insertion failed.")
+        #         self.conn.commit()
+
+        #         return chapter_item
+        #     except sqlite3.Error as e:
+        #         spider.logger.error(f"Error inserting item into database: {e}")
+        #         self.conn.rollback()
+        #         return None
+        # else:
+        #     print("Item is not an instance of ChapterItem")
+        #     print(f"chapter_item: {chapter_item}")
