@@ -7,6 +7,8 @@
 # pip install pytest
 # 运行测试
 # pytest test_pytest.py
+# 更详细的输出
+# pytest test_pytest.py -v
 
 import requests
 
