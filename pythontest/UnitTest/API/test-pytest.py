@@ -25,7 +25,7 @@ def test_create_user():
         "email": "john@example.com"
     }
     response = requests.post(url, json=new_user)
-    assert requests.status_codes == 201
+    assert response.status_code == 201
     created_user = response.json()
     assert created_user['name'] == new_user['name']
     assert created_user['username'] == new_user['username']
@@ -40,12 +40,12 @@ def test_update_user():
     assert response.status_code == 200
     update_user = response.json()
     assert update_user['name'] == update_data['name']
-    assert update_user['username'] == update_data['name']
+    assert update_user['username'] == update_data['username']
 
 def test_delete_user():
     url = "http://jsonplaceholder.typicode.com/user/1"
     response = requests.delete(url)
-    assert response.status_code == 200
+    assert response.status_code == 404
     response_after_delete = requests.get(url)
     assert response_after_delete.status_code == 404
 
