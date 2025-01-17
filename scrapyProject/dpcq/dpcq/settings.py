@@ -63,8 +63,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "dpcq.pipelines.DpcqPipeline": 1,
-   "dpcq.pipelines.ChaptersPipeline": 2,
+   "dpcq.pipelines.DpcqPipeline": 800,
+   "dpcq.pipelines_chapters.ChaptersPipeline": 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

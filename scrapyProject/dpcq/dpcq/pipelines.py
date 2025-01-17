@@ -69,68 +69,71 @@ class DpcqPipeline:
                 return None
 
 
-class ChaptersPipeline:
-    def __init__(self):
-        self.conn = None
-        self.cursor = None
+# class ChaptersPipeline:
+#     def __init__(self):
+#         self.conn = None
+#         self.cursor = None
 
-    def open_spider(self, spider):
-        self.conn = sqlite3.connect('chapters.db')
-        self.cursor = self.conn.cursor()
+#     def open_spider(self, spider):
+#         self.conn = sqlite3.connect('chapters.db')
+#         self.cursor = self.conn.cursor()
 
-        self.cursor.execute('''
-            DROP TABLE IF EXISTS chapters
-         ''')
-        # 创建表，如果表不存在的话
-        # SQLite的 TEXT 类型是不限制长度的，可以存储任意长度的字符串，但是如果字符串长度超过1000，会变成BLOB类型，所以这里设置为TEXT类型
-        # 包括字母数据，标点符号，特殊字符，空格等等
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS chapters (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            chapter TEXT
-                )
-         ''')
+#         self.cursor.execute('''
+#             DROP TABLE IF EXISTS chapters
+#          ''')
+#         # 创建表，如果表不存在的话
+#         # SQLite的 TEXT 类型是不限制长度的，可以存储任意长度的字符串，但是如果字符串长度超过1000，会变成BLOB类型，所以这里设置为TEXT类型
+#         # 包括字母数据，标点符号，特殊字符，空格等等
+#         self.cursor.execute('''
+#             CREATE TABLE IF NOT EXISTS chapters (
+#                             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                             chapter TEXT
+#                 )
+#          ''')
         
-    def close_spider(self, spider):
-        if self.conn:
-            self.conn.commit()
-            self.conn.close()
+#     def close_spider(self, spider):
+#         if self.conn:
+#             self.conn.commit()
+#             self.conn.close()
 
-    def process_item(self, chapter_item, spider):
+#     def process_item(self, chapter_item, spider):
 
-        # adapter = ItemAdapter(item)
-        # chapters = adapter.get('chapter', [])
-        # print(f"Chpters from ItemAdapter: {chapters}")
+#         # adapter = ItemAdapter(item)
+#         # chapters = adapter.get('chapter', [])
+#         # print(f"Chpters from ItemAdapter: {chapters}")
 
-        print ("开始处理章节")
-        print (f"chapter_item: {chapter_item}")
+#         print ("开始处理章节")
+#         print (f"chapter_item: {chapter_item}")
 
-        if chapter_item is None:
-            spider.logger.error("Item is None")
-            return None
-        try:
-            if isinstance(chapter_item, ChapterItem):
-                self.cursor.execute('''
-                                    INSERT INTO chapters (chapter)
-                                    VALUES (?)''', (chapter_item, ))
-                inserted_id = self.cursor.lastrowid
+#         if chapter_item is None:
+#             spider.logger.error("Item is None")
+#             return None
+#         try:
+#             if isinstance(chapter_item, ChapterItem):
+#                 self.cursor.execute('''
+#                                     INSERT INTO chapters (chapter)
+#                                     VALUES (?)''', (chapter_item, ))
+#                 inserted_id = self.cursor.lastrowid
 
-                if inserted_id:
-                    print(f"Data inserted successfully with ID: {inserted_id}")
-                else:
-                    print("Data insertion failed.")
-                self.conn.commit()
+#                 if inserted_id:
+#                     print(f"Data inserted successfully with ID: {inserted_id}")
+#                 else:
+#                     print("Data insertion failed.")
+#                 self.conn.commit()
 
-                return chapter_item
-            else:
-                print("Item is not an instance of ChapterItem")
-                print(f"chapter_item: {chapter_item}")
-                print(f"Type of chapter_item: {type(chapter_item)}")
-                return None
-        except sqlite3.Error as e:
-            spider.logger.error(f"Error inserting item into database:{e}")
-            self.conn.rollback()
-            return None
+#                 return chapter_item
+#             else:
+#                 print("Item is not an instance of ChapterItem")
+#                 print(f"chapter_item: {chapter_item}")
+#                 print(f"Type of chapter_item: {type(chapter_item)}")
+#                 return None
+#         except sqlite3.Error as e:
+#             spider.logger.error(f"Error inserting item into database:{e}")
+#             self.conn.rollback()
+#             return None
+
+
+
     
         # if isinstance(chapter_item, ChapterItem):
         #     print ("分割线")
