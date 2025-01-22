@@ -1,6 +1,5 @@
 from itemadapter import ItemAdapter
 import sqlite3
-import copy
 
 from dpcq.items import ChapterItem
 
@@ -22,7 +21,8 @@ class ChaptersPipeline:
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS chapters (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            chapter TEXT
+                            chapter TEXT,
+                            link TEXT
                 )
          ''')
         
@@ -32,34 +32,21 @@ class ChaptersPipeline:
             self.conn.close()
 
     def process_item(self, item, spider):
-        # 确保不修改原始item。或者对item进行深拷贝
-        # item_copy = copy.deepcopy(item)
-        # item_copy['field'] = 'another_value'
-        # return item_copy
-
-        # adapter = ItemAdapter(item)
-        # chapters = adapter.get('chapter', [])
-        # print(f"Chpters from ItemAdapter: {chapters}")
 
         print ("开始处理章节")
-        print (f"chapter_item: {item}")
+        print (f"chapter item: {item}")
 
         if item is None:
             spider.logger.error("Item is None")
             return None
-        
-        # # 创建 item 的副本
-        # item_copy = copy.deepcopy(item)
-        # # 可以在这里修改副本
-        # item_copy['chapter'] = 'another_value'
 
         try:
             if isinstance(item, ChapterItem):
-                for chapter in item['chapter']:
+                for chapter_name, chapter_link in zip(item['name'], item['link']):
                     # chapter = item.get('chapter', [])
                     self.cursor.execute('''
-                                    INSERT INTO chapters (chapter)
-                                    VALUES (?)''', (chapter, ))
+                                    INSERT INTO chapters (chapter, link)
+                                    VALUES (?, ?)''', (chapter_name, chapter_link, ))
                 inserted_id = self.cursor.lastrowid
 
                 if inserted_id:

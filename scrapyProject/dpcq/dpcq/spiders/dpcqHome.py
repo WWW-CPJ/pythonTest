@@ -55,18 +55,18 @@ class DocqhomeSpider(scrapy.Spider):
         yield item
 
 
-        chapter_item = ChapterItem()
-        novel_chapters = response.xpath('//div[@class="m-book-list"]/div[@id="play_0"]/ul/li/a/text()').getall()[0:10]
-        for novrl_chapter in novel_chapters[0:9]:
-            self.logger.info(f"Novel chapter: {novrl_chapter}")
+        # chapter_item = ChapterItem()
+        # novel_chapters = response.xpath('//div[@class="m-book-list"]/div[@id="play_0"]/ul/li/a/text()').getall()[0:10]
+        # for novrl_chapter in novel_chapters[0:9]:
+        #     self.logger.info(f"Novel chapter: {novrl_chapter}")
 
-        chapter_item['chapter'] = novel_chapters
-        print(f"spider item: {chapter_item}")
-        # yield chapter_item
-        if chapter_item['chapter']:
-            yield chapter_item
-        else:
-            self.logger.error("Chapter is None")
+        # chapter_item['chapter'] = novel_chapters
+        # print(f"spider item: {chapter_item}")
+        # # yield chapter_item
+        # if chapter_item['chapter']:
+        #     yield chapter_item
+        # else:
+        #     self.logger.error("Chapter is None")
 
  
 
