@@ -1,0 +1,12 @@
+{
+  "name": "scrapy-node-integration",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node runScrapy.js"
+  },
+  "devDependencies": {
+    "cross-spawn": "^7.0.6"
+  }
+}
+
+
