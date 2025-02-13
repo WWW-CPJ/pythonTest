@@ -16,6 +16,12 @@ NEWSPIDER_MODULE = "dpcq.spiders"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "dpcq (+http://www.yourdomain.com)"
 
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,   #禁用了 Scrapy 内置的 UserAgentMiddleware
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,   #添加了 scrapy-user-agents 的 RandomUser
+#     'dpcq.middlewares.ProxyMiddleware': 543,   # 添加了自定义的 ProxyMiddleware
+# }
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
@@ -25,7 +31,9 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+
+# DOWNLOAD_DELAY = 3   # 设置下载延迟为 3 秒,控制请求间隔时间
+
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16

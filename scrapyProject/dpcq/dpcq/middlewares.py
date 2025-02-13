@@ -8,6 +8,18 @@ from scrapy import signals
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+# import random
+# # 使用 代理IP 中间件 ProxyMiddleware 来设置代理IP 实现反反爬虫
+# class ProxyMiddleware:
+#     def __init__(self):
+#         self.proxies = [
+#             'http://proxy1.example.com:8080',
+#             'https://proxy2.example.com:8080',
+#             # 可以添加更多代理IP
+#         ]
+#     def process_request(self, request, spider):
+#         proxy = random.choice(self.proxies)
+#         request.meta['proxy'] = proxy
 
 class DpcqSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
