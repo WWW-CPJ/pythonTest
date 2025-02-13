@@ -32,7 +32,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 
-# DOWNLOAD_DELAY = 3   # 设置下载延迟为 3 秒,控制请求间隔时间
+DOWNLOAD_DELAY = 30   # 设置下载延迟为 3 秒,控制请求间隔时间
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
