@@ -42,7 +42,7 @@ class ChaptersPipeline:
 
         try:
             if isinstance(item, ChapterItem):
-                for chapter_name, chapter_link in zip(item['name'], item['link']):
+                for chapter_name, chapter_link in zip(item['chapter'], item['link']):
                     # chapter = item.get('chapter', [])
                     self.cursor.execute('''
                                     INSERT INTO chapters (chapter, link)

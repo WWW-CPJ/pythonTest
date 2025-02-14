@@ -15,7 +15,7 @@ class ChaptersSpider(scrapy.Spider):
         for novel_chapter in novel_chapters[0:9]:
             self.logger.info(f"Novel chapter: {novel_chapter}")
 
-        item['name'] = novel_chapters
+        item['chapter'] = novel_chapters
         # print(f"chapter name: {item}")
 
 
@@ -27,7 +27,7 @@ class ChaptersSpider(scrapy.Spider):
         print(f"chapter item: {item}")
 
                 # yield chapter_item
-        if item['name']:
+        if item['chapter']:
             yield item
         else:
             self.logger.error("Chapter is None")

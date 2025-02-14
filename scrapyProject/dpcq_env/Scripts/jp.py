@@ -1,4 +1,4 @@
-#!C:\VScode\python\scrapyTest\scrapyProject\dpcq\dpcq_env\Scripts\python.exe
+#!C:\VScode\python\scrapyTest\scrapyProject\dpcq_env\Scripts\python.exe
 
 import sys
 import json

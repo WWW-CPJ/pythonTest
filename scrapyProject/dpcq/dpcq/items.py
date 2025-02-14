@@ -18,7 +18,7 @@ class DpcqItem(scrapy.Item):
     # chapter = scrapy.Field()
 
 class ChapterItem(scrapy.Item):
-    name = scrapy.Field()
+    chapter = scrapy.Field()
     link = scrapy.Field()
     
 
