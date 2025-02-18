@@ -1,17 +1,18 @@
-import os
-import sys
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+# import os
+# import sys
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# parent_dir = os.path.dirname(current_dir)
+# sys.path.append(parent_dir)
 
 
 from itemadapter import ItemAdapter
 import sqlite3
 from dpcq.items import ChapterItem
 
-from django_setup import setup_django_env
-from search_project.search_app.models import SearchItem
-setup_django_env()
+# from django_setup import setup_django_env
+# setup_django_env()
+# from search_project.search_app.models import SearchItem
+
 
 
 class ChaptersPipeline:
@@ -55,8 +56,9 @@ class ChaptersPipeline:
             if isinstance(item, ChapterItem):
                 for chapter_name, chapter_link in zip(item['chapter'], item['link']):
 
-                    # 使用 Django 模型创建新纪录
-                    SearchItem.objects.create(chapter=chapter_name, link=chapter_link)
+                    # # 使用 Django 模型创建新纪录
+                    # 由于集成时 导入 models 会报错，所以使用原生 SQL 语句创建新纪录
+                    # SearchItem.objects.create(chapter=chapter_name, link=chapter_link)
 
                     # 使用 SQLite 原生 SQL 语句创建新纪录
                     self.cursor.execute('''
