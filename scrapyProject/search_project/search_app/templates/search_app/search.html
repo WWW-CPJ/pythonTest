@@ -1,14 +1,126 @@
+<!-- filepath: /c:/VScode/python/scrapyTest/scrapyProject/search_project/search_app/templates/search_app/search.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* 聊天机器人图标样式 */
+        #chatbot-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        #chatbot-logo button {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+        }
+
+        #chatbot-logo button img {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* 聊天机器人容器样式 */
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 30%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        #chatbot-header {
+            padding: 10px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chatbot-header span {
+            cursor: pointer;
+        }
+
+        #chatbot-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        #chatbot-input {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            display: flex;
+        }
+
+        #chatbot-input input {
+            flex-grow: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        #chatbot-input button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* 优化搜索页面样式 */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        .list-group-item {
+            margin-bottom: 10px;
+            border: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container mt-5">
-        <h1>Search</h1>
+        <h1 class="text-center">Search</h1>
+        <p class="text-center">Find what you're looking for...</p>
         <form method="get" action=".">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="q" placeholder="Search..." value="{{ query }}">
@@ -16,46 +128,120 @@
             </div>
         </form>
         {% if page_obj %}
-            <ul class="list-group">
-                {% for item in page_obj %}
-                    <li class="list-group-item">
-                        <h5>{{ item.chapter }}</h5>
-                        <p>
-                            <a href="https://www.doupocangqiong.org{{ item.link }}" class="text-primary">
-                                https://www.doupocangqiong.org{{ item.link }}
-                            </a>
-                        </p>                    </li>
+        <ul class="list-group">
+            {% for item in page_obj %}
+            <li class="list-group-item">
+                <h5>{{ item.chapter }}</h5>
+                <p>
+                    <a href="https://www.doupocangqiong.org{{ item.link }}" class="text-primary">
+                        https://www.doupocangqiong.org{{ item.link }}
+                    </a>
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
+                {% endif %}
                 {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                            <li class="page-item active"><a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
-                        {% else %}
-                            <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-                    {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
+        </nav>
         {% else %}
-            <p>No results found.</p>
+        <p class="text-center">No results found.</p>
         {% endif %}
     </div>
+    <!-- 右上角的 AI 对话机器人 logo -->
+    <div id="chatbot-logo" onclick="toggleChatbot()">
+        <!-- 将图片改为按钮 -->
+        <button>
+            <img src="{% static 'images/chatbot-logo.png' %}" alt="Chatbot Logo">
+        </button>
+    </div>
+    <!-- 聊天机器人对话框 -->
+    <div id="chatbot-container" class="hidden">
+        <div id="chatbot-header">
+            <h3>AI Chatbot</h3>
+            <span onclick="toggleChatbot()">×</span>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 切换聊天机器人对话框的显示和隐藏
+        function toggleChatbot() {
+            const chatbotContainer = document.getElementById('chatbot-container');
+            chatbotContainer.classList.toggle('hidden');
+        }
+
+        // 发送消息
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value;
+            if (message.trim() === '') return;
+
+            // 显示用户消息
+            const chatMessages = document.getElementById('chatbot-messages');
+            const userMessage = document.createElement('div');
+            userMessage.textContent = `You: ${message}`;
+            chatMessages.appendChild(userMessage);
+
+            // 清空输入框
+            userInput.value = '';
+
+            try {
+                // 调用后端 API 获取回复
+                const response = await fetch('/chatbot-api/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'message': message
+                    })
+                });
+
+                const data = await response.json();
+                if (data.response) {
+                    const aiMessage = document.createElement('div');
+                    aiMessage.textContent = `AI: ${data.response}`;
+                    chatMessages.appendChild(aiMessage);
+                } else {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.textContent = `Error: ${data.error}`;
+                    chatMessages.appendChild(errorMessage);
+                }
+            } catch (error) {
+                console.error('Error getting AI response:', error);
+                const errorMessage = document.createElement('div');
+                errorMessage.textContent = 'Error getting AI response. Please try again later.';
+                chatMessages.appendChild(errorMessage);
+            }
+        }
+    </script>
 </body>
+
 </html>

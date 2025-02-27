@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>AI Chatbot</title>
+</head>
+
+<body>
+    <!-- 聊天机器人图标 -->
+    <div id="chatbot-logo" onclick="toggleChatbot()">
+        <img src="chatbot-logo.png" alt="Chatbot Logo">
+    </div>
+    <!-- 聊天机器人对话框 -->
+    <div id="chatbot-container" class="hidden">
+        <div id="chatbot-header">
+            <h3>AI Chatbot</h3>
+            <span onclick="toggleChatbot()">×</span>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
